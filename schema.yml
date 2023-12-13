@@ -1,0 +1,1875 @@
+openapi: 3.0.3
+info:
+  title: SOCIAL MEDIA REST API Simulation
+  version: 1.0.0
+  description: Your project description
+paths:
+  /block/:
+    get:
+      operationId: block_list
+      tags:
+      - block
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Block'
+          description: ''
+    post:
+      operationId: block_create
+      tags:
+      - block
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Block'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Block'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Block'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Block'
+          description: ''
+  /block/{user_handle}/:
+    delete:
+      operationId: block_destroy
+      parameters:
+      - in: path
+        name: user_handle
+        schema:
+          type: string
+        required: true
+      tags:
+      - block
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /check-password-match/:
+    post:
+      operationId: check_password_match_create
+      tags:
+      - check-password-match
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PasswordCheckMatch'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PasswordCheckMatch'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PasswordCheckMatch'
+        required: true
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PasswordCheckMatch'
+          description: ''
+  /follows/:
+    post:
+      operationId: follows_create
+      tags:
+      - follows
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Follow'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Follow'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Follow'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Follow'
+          description: ''
+  /follows/{user_handle}/:
+    delete:
+      operationId: follows_destroy
+      parameters:
+      - in: path
+        name: user_handle
+        schema:
+          type: string
+        required: true
+      tags:
+      - follows
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /follows/{user_handle}/followers/:
+    get:
+      operationId: follows_followers_retrieve
+      parameters:
+      - in: path
+        name: user_handle
+        schema:
+          type: string
+        required: true
+      tags:
+      - follows
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Follow'
+          description: ''
+  /follows/{user_handle}/followings/:
+    get:
+      operationId: follows_followings_retrieve
+      parameters:
+      - in: path
+        name: user_handle
+        schema:
+          type: string
+        required: true
+      tags:
+      - follows
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Follow'
+          description: ''
+  /hashtags/:
+    get:
+      operationId: hashtags_retrieve
+      tags:
+      - hashtags
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          description: No response body
+    post:
+      operationId: hashtags_create
+      tags:
+      - hashtags
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          description: No response body
+  /notifications/:
+    get:
+      operationId: notifications_list
+      tags:
+      - notifications
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ListNotifications'
+          description: ''
+  /password-change/:
+    post:
+      operationId: password_change_create
+      tags:
+      - password-change
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PasswordChange'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PasswordChange'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PasswordChange'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PasswordChange'
+          description: ''
+  /password-recovery/:
+    post:
+      operationId: password_recovery_create
+      tags:
+      - password-recovery
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PasswordRecoveryRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PasswordRecoveryRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PasswordRecoveryRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PasswordRecoveryRequest'
+          description: ''
+  /password-recovery/{uidb64}/{token}/:
+    post:
+      operationId: password_recovery_create_with_uid_and_token
+      parameters:
+      - in: path
+        name: token
+        schema:
+          type: string
+        required: true
+      - in: path
+        name: uidb64
+        schema:
+          type: string
+        required: true
+      tags:
+      - password-recovery
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PasswordRecoveryRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PasswordRecoveryRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PasswordRecoveryRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PasswordRecoveryRequest'
+          description: ''
+  /posts/:
+    get:
+      operationId: posts_list
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      tags:
+      - posts
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    example: 123
+                  next:
+                    type: string
+                    nullable: true
+                    format: uri
+                    example: http://api.example.org/accounts/?page=4
+                  previous:
+                    type: string
+                    nullable: true
+                    format: uri
+                    example: http://api.example.org/accounts/?page=2
+                  results:
+                    type: array
+                    items:
+                      type: object
+                      additionalProperties: {}
+                      description: Unspecified response body
+          description: ''
+    post:
+      operationId: posts_create
+      tags:
+      - posts
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePost'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CreatePost'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CreatePost'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreatePost'
+          description: ''
+  /posts/{id}/:
+    get:
+      operationId: posts_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this post.
+        required: true
+      tags:
+      - posts
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListPostReplies'
+          description: ''
+    put:
+      operationId: posts_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this post.
+        required: true
+      tags:
+      - posts
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePost'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CreatePost'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CreatePost'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreatePost'
+          description: ''
+    patch:
+      operationId: posts_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this post.
+        required: true
+      tags:
+      - posts
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedCreatePost'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedCreatePost'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedCreatePost'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreatePost'
+          description: ''
+    delete:
+      operationId: posts_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this post.
+        required: true
+      tags:
+      - posts
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /posts/{id}/likes/:
+    get:
+      operationId: posts_likes_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - posts
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          description: No response body
+    post:
+      operationId: posts_likes_create
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - posts
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          description: No response body
+    delete:
+      operationId: posts_likes_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - posts
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /posts/{id}/reposts/:
+    get:
+      operationId: posts_reposts_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - posts
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          description: No response body
+    post:
+      operationId: posts_reposts_create
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - posts
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          description: No response body
+    delete:
+      operationId: posts_reposts_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - posts
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /posts/{id}/votepoll/:
+    post:
+      operationId: posts_votepoll_create
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - posts
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          description: No response body
+  /search:
+    get:
+      operationId: search_retrieve
+      tags:
+      - search
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          description: No response body
+  /token/:
+    post:
+      operationId: token_create
+      description: |-
+        Takes a set of user credentials and returns an access and refresh JSON web
+        token pair to prove the authentication of those credentials.
+      tags:
+      - token
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenObtainPair'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TokenObtainPair'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TokenObtainPair'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenObtainPair'
+          description: ''
+  /token/refresh/:
+    post:
+      operationId: token_refresh_create
+      description: |-
+        Takes a refresh type JSON web token and returns an access type JSON web
+        token if the refresh token is valid.
+      tags:
+      - token
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenRefresh'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TokenRefresh'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TokenRefresh'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenRefresh'
+          description: ''
+  /user-mention/:
+    post:
+      operationId: user_mention_create
+      tags:
+      - user-mention
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          description: No response body
+  /users/:
+    get:
+      operationId: users_list
+      description: |-
+        List users.
+
+
+        Get the list of the active users. The response includes user details such as user_handle, username, and email.
+
+
+
+        ### Response(Success):
+
+        - `200 OK` : List of user objects.
+
+            - `user_handle` (str): User handle.
+
+            - `username` (str): Username.
+
+            - `biography` (str): Profile Biography.
+
+            - `follower_amount` (int): Number of followers for the user.
+
+            - `following_amount` (int): Number of users the user is following.
+
+
+
+
+        ### Response(Fail):
+
+            - 401 Unauthorized: If the user is not authenticated.
+      tags:
+      - users
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ListSimpleUser'
+          description: ''
+    post:
+      operationId: users_create
+      description: |-
+        Create a new user.
+
+
+        Creation of a new user account. Upon successful creation,
+        an activation email is sent to the user's email address to complete the registration process.
+
+
+
+        ## Fields (in the Request Body):
+
+        - ### Required:
+            - `username` (str): Username for the user.
+
+            - `user_handle` (str): Unique user handle.
+
+            - `email` (str): Email address for the user.
+
+            - `password` (str): User's password.
+
+            - `password2` (str): Confirmation of the user's password.
+
+            - `first_name` (str): User's first name.
+
+            - `last_name` (str): User's last name.
+
+            - `gender` (str): User's gender(options: ['Female', 'Male', 'Others']).
+
+
+
+        - ### Optionals:
+
+            - `biography` (str): User's biography.
+
+            - `profile_img` (file): Profile image for the user.
+
+            - `header_photo` (file): Header photo for the user profile.
+
+            - `email_substitute` (str): Substitute email address for communication.
+
+            - `website` (str): User's website URL.
+
+            - `location` (str): User's location.
+
+            - `birth_date` (str): User's date of birth.
+
+
+
+        ### Response (Success):
+
+        - 201 Created: User created successfully. An activation email will be sent to the user's email address.
+
+
+
+        ### Response (Failure):
+
+        - 400 Bad Request: Invalid input data. Check the response for details.
+
+        - 409 Conflict: Unable to send the activation email.
+      tags:
+      - users
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUser'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CreateUser'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CreateUser'
+        required: true
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateUser'
+          description: ''
+  /users/{user_handle}/:
+    get:
+      operationId: users_retrieve
+      description: |-
+        Retrieve user profile.
+
+
+        Retrieval of a user's profile information find it from the user_handle. The user must be authenticated to access this endpoint.
+
+
+        ### Path Parameter:
+
+        - `user_handle` (str):
+        The handle of the user account to be deactivated.
+
+
+
+        ### Response (Success):
+
+        - `200 OK`:
+        User profile retrieved successfully.
+
+            - `username` (str): User's username.
+
+            - `user_handle` (str): User's unique handle.
+
+            - `email` (str): User's email address.
+
+            - `first_name` (str): User's first name.
+
+            - `last_name` (str): User's last name.
+
+            - `birth_date` (str): User's date of birth.
+
+            - `biography` (str): User's biography.
+
+            - `profile_img` (str): URL to the user's profile image.
+
+            - `header_photo` (str): URL to the user's header photo.
+
+            - `website` (str): User's website URL.
+
+            - `location` (str): User's location.
+
+            - `create_at` (str): Formatted creation date (e.g., "January of 2022").
+
+            - `follower_amount` (int): Number of followers for the user.
+
+            - `following_amount` (int): Number of users the user is following.
+
+
+
+        ### Response (Failure):
+
+        - `401 Unauthorized`:
+        If the user is not authenticated or does not have permission to access the profile.
+
+        - `404 Not Found`:
+        User with the user_handle parse in the query parameter not exists or is inactive.
+      parameters:
+      - in: path
+        name: user_handle
+        schema:
+          type: string
+        required: true
+      tags:
+      - users
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListProfileUser'
+          description: ''
+    put:
+      operationId: users_update
+      description: |-
+        Update user information.
+
+
+        Update of user information. To update the information,
+        the user must be authenticated and can only update their own account.
+
+
+        ### Path Parameter:
+
+        - `user_handle` (str): The handle of the user account to be updated.
+
+
+
+        ### Request Body (Partial Update):
+
+        - The request body should contain the fields to be updated. Partial updates are allowed.
+
+            - `username` (str): Username for the user.
+
+            - `user_handle` (str): Unique user handle.
+
+            - `email` (str): Email address for the user.
+
+            - `first_name` (str): User's first name.
+
+            - `last_name` (str): User's last name.
+
+            - `gender` (str): User's gender.
+
+            - `biography` (str): User's biography.
+
+            - `profile_img` (file): Profile image for the user.
+
+            - `header_photo` (file): Header photo for the user profile.
+
+            - `email_substitute` (str): Substitute email address for communication.
+
+            - `website` (str): User's website URL.
+
+            - `location` (str): User's location.
+
+            - `birth_date` (str): User's date of birth.
+
+
+
+        ### Response (Success):
+
+        - `200 OK`:
+        User information updated successfully.
+
+            - `message` (str): Confirmation message.
+
+
+
+        ### Response (Failure):
+
+        - `400 Bad Request`:
+        Invalid input data. Check the response for details.
+
+        - `403 Forbidden`:
+        The user is not allowed to update the account.
+      parameters:
+      - in: path
+        name: user_handle
+        schema:
+          type: string
+        required: true
+      tags:
+      - users
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateUser'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UpdateUser'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UpdateUser'
+        required: true
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateUser'
+          description: ''
+    patch:
+      operationId: users_partial_update
+      description: |-
+        Update user information.
+
+
+        Update of user information. To update the information,
+        the user must be authenticated and can only update their own account.
+
+
+        ### Path Parameter:
+
+        - `user_handle` (str): The handle of the user account to be updated.
+
+
+
+        ### Request Body (Partial Update):
+
+        - The request body should contain the fields to be updated. Partial updates are allowed.
+
+            - `username` (str): Username for the user.
+
+            - `user_handle` (str): Unique user handle.
+
+            - `email` (str): Email address for the user.
+
+            - `first_name` (str): User's first name.
+
+            - `last_name` (str): User's last name.
+
+            - `gender` (str): User's gender.
+
+            - `biography` (str): User's biography.
+
+            - `profile_img` (file): Profile image for the user.
+
+            - `header_photo` (file): Header photo for the user profile.
+
+            - `email_substitute` (str): Substitute email address for communication.
+
+            - `website` (str): User's website URL.
+
+            - `location` (str): User's location.
+
+            - `birth_date` (str): User's date of birth.
+
+
+
+        ### Response (Success):
+
+        - `200 OK`:
+        User information updated successfully.
+
+            - `message` (str): Confirmation message.
+
+
+
+        ### Response (Failure):
+
+        - `400 Bad Request`:
+        Invalid input data. Check the response for details.
+
+        - `403 Forbidden`:
+        The user is not allowed to update the account.
+      parameters:
+      - in: path
+        name: user_handle
+        schema:
+          type: string
+        required: true
+      tags:
+      - users
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedUpdateUser'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedUpdateUser'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedUpdateUser'
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateUser'
+          description: ''
+    delete:
+      operationId: users_destroy
+      description: |-
+        Deactivate user account.
+
+
+        Deactivation of a user account. To deactivate the account,
+        the user must be authenticated and can only deactivate their own account.
+
+        ### Path Parameter:
+
+        - `user_handle` (str):
+        The handle of the user account to be deactivated.
+
+
+
+        ### Response (Success):
+
+        - `200 OK`:
+        User account deactivated successfully.
+
+            - `message` (str): Confirmation message.
+
+
+
+        ### Response (Failure):
+
+        - `403 Forbidden`:
+        The user is not allowed to deactivate the account.
+      parameters:
+      - in: path
+        name: user_handle
+        schema:
+          type: string
+        required: true
+      tags:
+      - users
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '204':
+          description: No response body
+  /users/check-field-availability/{field_name}/{value}/:
+    get:
+      operationId: users_check_field_availability_retrieve
+      parameters:
+      - in: path
+        name: field_name
+        schema:
+          type: string
+        required: true
+      - in: path
+        name: value
+        schema:
+          type: string
+        required: true
+      tags:
+      - users
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /users/confirm-email/{uidb64}/{token}/:
+    get:
+      operationId: users_confirm_email_retrieve
+      parameters:
+      - in: path
+        name: token
+        schema:
+          type: string
+        required: true
+      - in: path
+        name: uidb64
+        schema:
+          type: string
+        required: true
+      tags:
+      - users
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+components:
+  schemas:
+    Block:
+      type: object
+      properties:
+        blocked_user:
+          type: string
+        reason:
+          type: string
+          nullable: true
+      required:
+      - blocked_user
+    CreatePost:
+      type: object
+      properties:
+        user:
+          type: string
+          title: Post by
+        body:
+          type: string
+          title: Post Content
+          maxLength: 280
+        video:
+          type: string
+          format: uri
+          nullable: true
+          pattern: (?:mov|avi|mp4|webm|mkv)$
+        img1:
+          type: string
+          format: uri
+          nullable: true
+          title: Post image 1
+        img2:
+          type: string
+          format: uri
+          nullable: true
+          title: Post image 2
+        img3:
+          type: string
+          format: uri
+          nullable: true
+          title: Post image 3
+        img4:
+          type: string
+          format: uri
+          nullable: true
+          title: Post image 4
+        gif:
+          type: string
+          format: uri
+          nullable: true
+          title: Post gif
+        date_to_publish:
+          type: string
+          format: date-time
+          title: Date to be publish
+        quote:
+          type: integer
+          nullable: true
+        parent:
+          type: integer
+          nullable: true
+        opt1:
+          type: string
+          maxLength: 25
+        opt2:
+          type: string
+          maxLength: 25
+        opt3:
+          type: string
+          nullable: true
+          maxLength: 25
+        opt4:
+          type: string
+          nullable: true
+          maxLength: 25
+        end_time:
+          type: string
+          format: date-time
+          default: '2023-12-07T21:42:59.132325Z'
+      required:
+      - body
+      - user
+    CreateUser:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        password2:
+          type: string
+        password:
+          type: string
+          maxLength: 128
+        create_at:
+          type: string
+          format: date-time
+          readOnly: true
+          title: Date of creation
+        modify_at:
+          type: string
+          format: date-time
+          readOnly: true
+          title: Date of last modification
+        first_name:
+          type: string
+          maxLength: 100
+        last_name:
+          type: string
+          maxLength: 100
+        username:
+          type: string
+          maxLength: 100
+        user_handle:
+          type: string
+          maxLength: 70
+        biography:
+          type: string
+          nullable: true
+          maxLength: 160
+        profile_img:
+          type: string
+          format: uri
+          nullable: true
+        header_photo:
+          type: string
+          format: uri
+          nullable: true
+        email:
+          type: string
+          format: email
+          maxLength: 254
+        email_substitute:
+          type: string
+          format: email
+          nullable: true
+          maxLength: 254
+        gender:
+          $ref: '#/components/schemas/GenderEnum'
+        website:
+          type: string
+          format: uri
+          nullable: true
+          maxLength: 200
+        location:
+          type: string
+          nullable: true
+          maxLength: 160
+        birth_date:
+          type: string
+          format: date
+          nullable: true
+      required:
+      - create_at
+      - email
+      - first_name
+      - gender
+      - id
+      - last_name
+      - modify_at
+      - password
+      - password2
+      - user_handle
+      - username
+    Follow:
+      type: object
+      properties:
+        following:
+          type: string
+      required:
+      - following
+    GenderEnum:
+      enum:
+      - Female
+      - Male
+      - Other
+      type: string
+      description: |-
+        * `Female` - Female
+        * `Male` - Male
+        * `Other` - Other
+    ListNotifications:
+      type: object
+      properties:
+        sender:
+          allOf:
+          - $ref: '#/components/schemas/ListSimpleUser'
+          readOnly: true
+        post:
+          allOf:
+          - $ref: '#/components/schemas/ListPostNotification'
+          readOnly: true
+        create_at:
+          type: string
+          format: date-time
+          readOnly: true
+          title: Date of creation
+        notification_type:
+          $ref: '#/components/schemas/NotificationTypeEnum'
+        header:
+          type: string
+          maxLength: 150
+        message:
+          type: string
+          nullable: true
+        is_read:
+          type: boolean
+          title: Read
+      required:
+      - create_at
+      - header
+      - notification_type
+      - post
+      - sender
+    ListPost:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        body:
+          type: string
+          title: Post Content
+          maxLength: 280
+        video:
+          type: string
+          format: uri
+          nullable: true
+          pattern: (?:mov|avi|mp4|webm|mkv)$
+        img1:
+          type: string
+          format: uri
+          nullable: true
+          title: Post image 1
+        img2:
+          type: string
+          format: uri
+          nullable: true
+          title: Post image 2
+        img3:
+          type: string
+          format: uri
+          nullable: true
+          title: Post image 3
+        img4:
+          type: string
+          format: uri
+          nullable: true
+          title: Post image 4
+        gif:
+          type: string
+          format: uri
+          nullable: true
+          title: Post gif
+        quote:
+          type: string
+          readOnly: true
+        date_to_publish:
+          type: string
+          format: date-time
+          title: Date to be publish
+        num_replies:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+          title: Replies amount
+        num_repost:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+          title: Repost amount
+        num_likes:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+          title: Likes amount
+        num_views:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+          title: Views amount
+        user:
+          allOf:
+          - $ref: '#/components/schemas/ListSimpleUser'
+          readOnly: true
+      required:
+      - body
+      - id
+      - quote
+      - user
+    ListPostNotification:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        body:
+          type: string
+          title: Post Content
+          maxLength: 280
+        video:
+          type: string
+          format: uri
+          nullable: true
+          pattern: (?:mov|avi|mp4|webm|mkv)$
+        img1:
+          type: string
+          format: uri
+          nullable: true
+          title: Post image 1
+        img2:
+          type: string
+          format: uri
+          nullable: true
+          title: Post image 2
+        img3:
+          type: string
+          format: uri
+          nullable: true
+          title: Post image 3
+        img4:
+          type: string
+          format: uri
+          nullable: true
+          title: Post image 4
+        gif:
+          type: string
+          format: uri
+          nullable: true
+          title: Post gif
+        quote:
+          type: integer
+          nullable: true
+          title: Quote from post
+        date_to_publish:
+          type: string
+          format: date-time
+          title: Date to be publish
+        num_replies:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+          title: Replies amount
+        num_repost:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+          title: Repost amount
+        num_likes:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+          title: Likes amount
+        num_views:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+          title: Views amount
+      required:
+      - body
+      - id
+    ListPostReplies:
+      type: object
+      properties:
+        post:
+          allOf:
+          - $ref: '#/components/schemas/ListPost'
+          readOnly: true
+        replies:
+          type: array
+          items:
+            $ref: '#/components/schemas/ListPost'
+          readOnly: true
+      required:
+      - post
+      - replies
+    ListProfileUser:
+      type: object
+      properties:
+        username:
+          type: string
+          maxLength: 100
+        user_handle:
+          type: string
+          maxLength: 70
+        email:
+          type: string
+          format: email
+          maxLength: 254
+        first_name:
+          type: string
+          maxLength: 100
+        last_name:
+          type: string
+          maxLength: 100
+        birth_date:
+          type: string
+          format: date
+          nullable: true
+        biography:
+          type: string
+          nullable: true
+          maxLength: 160
+        profile_img:
+          type: string
+          format: uri
+          nullable: true
+        header_photo:
+          type: string
+          format: uri
+          nullable: true
+        website:
+          type: string
+          format: uri
+          nullable: true
+          maxLength: 200
+        location:
+          type: string
+          nullable: true
+          maxLength: 160
+        create_at:
+          type: string
+          format: date-time
+          readOnly: true
+          title: Date of creation
+        follower_amount:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        following_amount:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+      required:
+      - create_at
+      - email
+      - first_name
+      - last_name
+      - user_handle
+      - username
+    ListSimpleUser:
+      type: object
+      properties:
+        username:
+          type: string
+          maxLength: 100
+        user_handle:
+          type: string
+          maxLength: 70
+        biography:
+          type: string
+          nullable: true
+          maxLength: 160
+        profile_img:
+          type: string
+          format: uri
+          nullable: true
+        follower_amount:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        following_amount:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+      required:
+      - user_handle
+      - username
+    NotificationTypeEnum:
+      enum:
+      - mention
+      - like
+      - repost
+      - quote
+      - follow
+      type: string
+      description: |-
+        * `mention` - Mention
+        * `like` - Like
+        * `repost` - Repost
+        * `quote` - Quote
+        * `follow` - Follow
+    PasswordChange:
+      type: object
+      properties:
+        old_password:
+          type: string
+          writeOnly: true
+        new_password:
+          type: string
+          writeOnly: true
+        confirm_new_password:
+          type: string
+          writeOnly: true
+      required:
+      - confirm_new_password
+      - new_password
+      - old_password
+    PasswordCheckMatch:
+      type: object
+      properties:
+        password:
+          type: string
+        password2:
+          type: string
+      required:
+      - password
+      - password2
+    PasswordRecoveryRequest:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+      required:
+      - email
+    PatchedCreatePost:
+      type: object
+      properties:
+        user:
+          type: string
+          title: Post by
+        body:
+          type: string
+          title: Post Content
+          maxLength: 280
+        video:
+          type: string
+          format: uri
+          nullable: true
+          pattern: (?:mov|avi|mp4|webm|mkv)$
+        img1:
+          type: string
+          format: uri
+          nullable: true
+          title: Post image 1
+        img2:
+          type: string
+          format: uri
+          nullable: true
+          title: Post image 2
+        img3:
+          type: string
+          format: uri
+          nullable: true
+          title: Post image 3
+        img4:
+          type: string
+          format: uri
+          nullable: true
+          title: Post image 4
+        gif:
+          type: string
+          format: uri
+          nullable: true
+          title: Post gif
+        date_to_publish:
+          type: string
+          format: date-time
+          title: Date to be publish
+        quote:
+          type: integer
+          nullable: true
+        parent:
+          type: integer
+          nullable: true
+        opt1:
+          type: string
+          maxLength: 25
+        opt2:
+          type: string
+          maxLength: 25
+        opt3:
+          type: string
+          nullable: true
+          maxLength: 25
+        opt4:
+          type: string
+          nullable: true
+          maxLength: 25
+        end_time:
+          type: string
+          format: date-time
+          default: '2023-12-07T21:42:59.132325Z'
+    PatchedUpdateUser:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        modify_at:
+          type: string
+          format: date-time
+          readOnly: true
+          title: Date of last modification
+        first_name:
+          type: string
+          maxLength: 100
+        last_name:
+          type: string
+          maxLength: 100
+        username:
+          type: string
+          maxLength: 100
+        user_handle:
+          type: string
+          maxLength: 70
+        biography:
+          type: string
+          nullable: true
+          maxLength: 160
+        profile_img:
+          type: string
+          format: uri
+          nullable: true
+        header_photo:
+          type: string
+          format: uri
+          nullable: true
+        email:
+          type: string
+          format: email
+          maxLength: 254
+        email_substitute:
+          type: string
+          format: email
+          nullable: true
+          maxLength: 254
+        website:
+          type: string
+          format: uri
+          nullable: true
+          maxLength: 200
+        location:
+          type: string
+          nullable: true
+          maxLength: 160
+        birth_date:
+          type: string
+          format: date
+          nullable: true
+    TokenObtainPair:
+      type: object
+      properties:
+        email:
+          type: string
+          writeOnly: true
+        password:
+          type: string
+          writeOnly: true
+        access:
+          type: string
+          readOnly: true
+        refresh:
+          type: string
+          readOnly: true
+      required:
+      - access
+      - email
+      - password
+      - refresh
+    TokenRefresh:
+      type: object
+      properties:
+        access:
+          type: string
+          readOnly: true
+        refresh:
+          type: string
+      required:
+      - access
+      - refresh
+    UpdateUser:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        modify_at:
+          type: string
+          format: date-time
+          readOnly: true
+          title: Date of last modification
+        first_name:
+          type: string
+          maxLength: 100
+        last_name:
+          type: string
+          maxLength: 100
+        username:
+          type: string
+          maxLength: 100
+        user_handle:
+          type: string
+          maxLength: 70
+        biography:
+          type: string
+          nullable: true
+          maxLength: 160
+        profile_img:
+          type: string
+          format: uri
+          nullable: true
+        header_photo:
+          type: string
+          format: uri
+          nullable: true
+        email:
+          type: string
+          format: email
+          maxLength: 254
+        email_substitute:
+          type: string
+          format: email
+          nullable: true
+          maxLength: 254
+        website:
+          type: string
+          format: uri
+          nullable: true
+          maxLength: 200
+        location:
+          type: string
+          nullable: true
+          maxLength: 160
+        birth_date:
+          type: string
+          format: date
+          nullable: true
+      required:
+      - email
+      - first_name
+      - id
+      - last_name
+      - modify_at
+      - user_handle
+      - username
+  securitySchemes:
+    jwtAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
