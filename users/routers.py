@@ -1,8 +1,7 @@
-from django.urls import path, include
-from rest_framework.routers import DefaultRouter
+from rest_framework.routers import SimpleRouter
 from .views import UserViewSet, PasswordRecoveryViewSet, FollowViewSet, BlockViewSet
 
-router = DefaultRouter()
+router = SimpleRouter()
 
 router.register(r'users', UserViewSet, basename='users')
 router.register(r'password-recovery', PasswordRecoveryViewSet,
