@@ -61,7 +61,7 @@ class CustomAccountManager(BaseUserManager):
         if other_fields.get('is_superuser') is not True:
             raise ValueError('Restricted Access')
 
-        return self.create_user(first_name, last_name, username, email, password, **other_fields)
+        return self.create_user(first_name, last_name, username, user_handle, email, password, **other_fields)
 
 
 class User(AbstractBaseUser, PermissionsMixin, DatesRecordsBaseModel):

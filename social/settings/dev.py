@@ -10,12 +10,12 @@ ALLOWED_HOSTS = []
 
 DATABASES = {
     'default': {
-        'ENGINE': os.environ.get('DATABASES_ENGINE'),
-        'NAME': os.environ.get('DATABASES_NAME'),
-        'USER': os.environ.get('DATABASES_USER'),
-        'PASSWORD': os.environ.get('DATABASES_PASSWORD'),
-        'HOST': os.environ.get('DATABASES_HOST'),
-        'POST': os.environ.get('DATABASES_POST'),
+        'ENGINE': os.environ.get('DATABASE_ENGINE'),
+        'NAME': os.environ.get('DATABASE_NAME'),
+        'USER': os.environ.get('DATABASE_USER'),
+        'PASSWORD': os.environ.get('DATABASE_PASSWORD'),
+        'HOST': os.environ.get('DATABASE_HOST'),
+        'POST': os.environ.get('DATABASE_POST'),
     }
 }
 

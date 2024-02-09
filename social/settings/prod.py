@@ -4,18 +4,18 @@ from .base import *
 SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DEBUG')
+DEBUG = bool(int(os.environ.get('DEBUG')))
 
-ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS').split()
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS').split(',')
 
 DATABASES = {
     'default': {
-        'ENGINE': os.environ.get('DATABASES_ENGINE'),
-        'NAME': os.environ.get('DATABASES_NAME'),
-        'USER': os.environ.get('DATABASES_USER'),
-        'PASSWORD': os.environ.get('DATABASES_PASSWORD'),
-        'HOST': os.environ.get('DATABASES_HOST'),
-        'POST': os.environ.get('DATABASES_POST'),
+        'ENGINE': os.environ.get('DATABASE_ENGINE'),
+        'NAME': os.environ.get('DATABASE_NAME'),
+        'USER': os.environ.get('DATABASE_USER'),
+        'PASSWORD': os.environ.get('DATABASE_PASSWORD'),
+        'HOST': os.environ.get('DATABASE_HOST'),
+        'POST': os.environ.get('DATABASE_PORT'),
     }
 }
 
@@ -27,5 +27,5 @@ EMAIL_USE_TLS = bool(int(os.environ.get('EMAIL_USE_TLS')))
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 PASSWORD_RESET_TIMEOUT = os.environ.get('PASSWORD_RESET_TIMEOUT')
 
-CORS_ALLOWED_ORIGINS = list(os.environ.get('CORS_ALLOWED_ORIGINS'))
-CORS_ORIGIN_WHITELIST = list(os.environ.get('CORS_ORIGIN_WHITELIST'))
+CORS_ALLOWED_ORIGINS = list(os.environ.get('CORS_ALLOWED_ORIGINS').split(','))
+CORS_ORIGIN_WHITELIST = list(os.environ.get('CORS_ORIGIN_WHITELIST').split(','))

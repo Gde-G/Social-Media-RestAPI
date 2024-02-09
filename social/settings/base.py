@@ -166,10 +166,14 @@ SIMPLE_JWT = {
 
 SPECTACULAR_SETTINGS = {
     'TITLE': 'SOCIAL MEDIA REST API Simulation',
-    'DESCRIPTION': 'Your project description',
+    'DESCRIPTION': f"\
+Welcome to the Social Media API documentation. This API, meticulously crafted with \
+Django Rest Framework (DRF), offers a robust platform for social media interactions, \
+facilitating seamless communication and data management. Leveraging PostgreSQL, \
+a powerful relational database, our API ensures efficient handling of complex queries, \
+enabling rapid access to vast datasets while maintaining scalability and performance. \n\nFeatures: \n\n- Efficient Query Handling: Our API employs advanced query optimization techniques to deliver lightning-fast response times, even when processing complex queries across extensive datasets.\n- Scalability: Built with scalability in mind, the Social Media API utilizes containerization with Docker and hosting on AWS EC2 to seamlessly accommodate increasing demand, ensuring reliability and performance under heavy loads.\n- Comprehensive Documentation: Utilizing DRF Spectacular, we provide comprehensive and interactive documentation, offering developers clear insights into API endpoints, request/response formats, authentication methods, and more.\n- Automated Testing: With Pytest, we conduct thorough automated unit tests to verify the integrity and functionality of our API, ensuring code quality and reliability across each deployment.",
     'VERSION': '1.0.0',
     'SERVE_INCLUDE_SCHEMA': False,
-    # OTHER SETTINGS
 }
 
 FILE_UPLOAD_MAX_MEMORY_SIZE = 10 * 1024 * 1024

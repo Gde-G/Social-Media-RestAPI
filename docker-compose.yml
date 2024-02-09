@@ -1,0 +1,51 @@
+version: "3.9"
+
+services:
+  db:
+    container_name: postgres-db
+    image: postgres:15.5-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+    env_file:
+      - .env
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+
+  api:
+    container_name: django-api
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    command: gunicorn social.wsgi:application --bind 0.0.0.0:8000
+    volumes:
+      - ./:/usr/src/api/
+      - static_file:/home/app/api/staticfiles
+      - media_file:/home/app/api/mediafiles
+    expose:
+      - 8000
+    env_file:
+      - .env
+    depends_on:
+      - db
+
+  nginx:
+    container_name: nginx
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile.nginx
+    ports:
+      - 80:80
+    volumes:
+      - ./:/usr/src/api/
+      - static_file:/home/app/api/staticfiles
+      - media_file:/home/app/api/mediafiles
+    depends_on:
+      - api
+
+volumes:
+  postgres_data:
+  static_file:
+  media_file:
