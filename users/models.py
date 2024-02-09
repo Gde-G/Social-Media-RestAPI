@@ -42,9 +42,10 @@ class CustomAccountManager(BaseUserManager):
             other_fields['email_substitute'] = self.normalize_email(
                 other_fields['email_substitute'])
 
-        user = self.model(email=email, first_name=first_name,
-                          last_name=last_name, username=username,
-                          **other_fields)
+        user = self.model(
+            email=email, first_name=first_name, user_handle=user_handle,
+            last_name=last_name, username=username,
+            **other_fields)
 
         user.set_password(password)
         user.save()
@@ -61,7 +62,14 @@ class CustomAccountManager(BaseUserManager):
         if other_fields.get('is_superuser') is not True:
             raise ValueError('Restricted Access')
 
-        return self.create_user(first_name, last_name, username, user_handle, email, password, **other_fields)
+        return self.create_user(
+            first_name=first_name,
+            last_name=last_name,
+            username=username,
+            user_handle=user_handle,
+            email=email,
+            password=password,
+            **other_fields)
 
 
 class User(AbstractBaseUser, PermissionsMixin, DatesRecordsBaseModel):
